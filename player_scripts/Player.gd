@@ -3,6 +3,8 @@ extends Actor
 
 const Enemy = preload("res://Enemy.gd")
 
+var curr_state: state = idle_state.new()
+
 var snap_vec: Vector2 = Vector2(0, .05)
 
 var walk_strength = 1000
@@ -89,4 +91,26 @@ func _on_Attack_body_entered(body):
 	var enemy := body as Enemy
 	if enemy:
 		enemy.damage()
+
+
+class state:
+	func process():
+		pass
+
+class idle_state extends state:
+	func process():
+		if Input.is_action_just_pressed("jump"):
+			player.velocity.y = -500
+			player.curr_state = airborn_state.new()
+
+
+class airborn_state extends state:
+	func _init():
+		var coyote_timer = get_tree().create_timer(.1)
+	func process():
+		if Input.is_action_just_pressed("jump") and not coyote_timer.is_stopped():
+			player.velocity.y = -500
+		if Input.is_action_pressed("jump"):
+			player.acceleration.y = player.gravity.y / 2
+
 

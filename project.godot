@@ -23,11 +23,23 @@ _global_script_classes=[ {
 "class": "Hitbox",
 "language": "GDScript",
 "path": "res://Hitbox.gd"
+}, {
+"base": "Node",
+"class": "State",
+"language": "GDScript",
+"path": "res://player_scripts/State.gd"
+}, {
+"base": "Node",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://player_scripts/StateMachine.gd"
 } ]
 _global_script_class_icons={
 "Actor": "",
 "Enemy": "",
-"Hitbox": ""
+"Hitbox": "",
+"State": "",
+"StateMachine": ""
 }
 
 [application]
@@ -35,6 +47,15 @@ _global_script_class_icons={
 config/name="HelloWorld"
 run/main_scene="res://Testing.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+UserData="*res://addons/github-integration/scripts/user_data.gd"
+IconLoaderGithub="*res://addons/github-integration/scripts/IconLoaderGithub.gd"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/github-integration/plugin.cfg", "res://addons/godot-git-control.funabab/plugin.cfg" )
 
 [input]
 
