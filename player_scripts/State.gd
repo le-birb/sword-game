@@ -7,7 +7,7 @@ func enter():
 	pass
 
 func exit(next_state: State):
-	parent_fsm.state = next_state
+	parent_fsm.change_state(next_state)
 
 func _ready():
 	pass 

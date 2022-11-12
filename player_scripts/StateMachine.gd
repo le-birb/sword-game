@@ -2,15 +2,27 @@ extends Node
 
 class_name StateMachine
 
-var state setget enter_state
+var state
 
+var history = []
 
 func _ready():
-	enter_state(get_child(0))
+	change_state(get_child(0))
 
-func enter_state(new_state):
+func change_state(new_state):
+	history.append(new_state)
+	_enter_state(new_state)
+
+func back():
+	if history.size() > 0:
+		_enter_state(history.pop_back())
+	else:
+		# fall back on idle state, adding it to the history as well
+		change_state($IdleState)
+
+func _enter_state(new_state):
 	state = new_state
-	state.fsm = self
+	state.parent_fsm = self
 	state.enter()
 
 func _process(delta):
